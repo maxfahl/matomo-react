@@ -40,7 +40,6 @@
     "build:ts": "tsc",
     "clean:generated": "find . -name \"*.d.ts\" -type f -delete && find . -name \"*.tsbuildinfo\" -type f -delete",
     "start": "yarn build:ts -- --watch & yarn build:ts:es -- --watch",
-    "publish": "npm publish",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
