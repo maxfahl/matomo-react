@@ -14,7 +14,11 @@ import {
 } from './types'
 
 class MatomoTracker {
-  mutationObserver?: MutationObserver
+  private mutationObserver?: MutationObserver
+
+  private permanentTitle: string | undefined
+
+  private permanentHref: string | undefined
 
   constructor(userOptions: UserOptions) {
     if (!userOptions.urlBase) {
@@ -31,6 +35,8 @@ class MatomoTracker {
     urlBase,
     siteId,
     userId,
+    permanentTitle,
+    permanentHref,
     trackerUrl,
     srcUrl,
     disabled,
@@ -44,6 +50,9 @@ class MatomoTracker {
     if (typeof window === 'undefined') {
       return
     }
+
+    this.permanentTitle = permanentTitle
+    this.permanentHref = permanentHref
 
     window._paq = window._paq || []
 
@@ -304,8 +313,8 @@ class MatomoTracker {
   // Sends the tracked page/view/search to Matomo
   track({
     data = [],
-    documentTitle = window.document.title,
-    href,
+    documentTitle = this.permanentTitle ?? window.document.title,
+    href = this.permanentHref ?? window.location.href,
     customDimensions = false,
   }: TrackParams): void {
     if (data.length) {
@@ -323,7 +332,7 @@ class MatomoTracker {
         )
       }
 
-      this.pushInstruction('setCustomUrl', href ?? window.location.href)
+      this.pushInstruction('setCustomUrl', href)
       this.pushInstruction('setDocumentTitle', documentTitle)
       this.pushInstruction(...(data as [string, ...any[]]))
     }

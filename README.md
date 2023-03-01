@@ -21,6 +21,8 @@ const instance = createInstance({
   userId: 'UID76903202', // optional, default value: `undefined`.
   trackerUrl: 'https://LINK.TO.DOMAIN/tracking.php', // optional, default value: `${urlBase}matomo.php`
   srcUrl: 'https://LINK.TO.DOMAIN/tracking.js', // optional, default value: `${urlBase}matomo.js`
+	permanentTitle: 'My Awesome App', // optional, always use this title for tracking, ignores document.title. Useful for SPAs.
+	permanentHref: '/', // optional, always use this href for tracking, ignores window.location.href. Useful for SPAs.
   disabled: false, // optional, false by default. Makes all tracking calls no-ops if set to true.
   heartBeat: {
     // optional, enabled by default
@@ -73,7 +75,7 @@ const MyPage = () => {
 
 ## Advanced usage
 
-By default the Matomo Tracker will send the window's document title and location, or send your own values. Also, [custom dimensions](https://matomo.org/docs/custom-dimensions/) can be used:
+By default we send the window's document title and location, or send your own values. Also, [custom dimensions](https://matomo.org/docs/custom-dimensions/) can be used:
 
 ```tsx
 import React from 'react'

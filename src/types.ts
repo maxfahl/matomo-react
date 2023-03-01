@@ -28,6 +28,8 @@ export interface UserOptions {
   urlBase: string
   siteId: number
   userId?: string
+  permanentTitle?: string
+  permanentHref?: string
   trackerUrl?: string
   srcUrl?: string
   disabled?: boolean
