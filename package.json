@@ -1,0 +1,46 @@
+{
+  "name": "@jonkoops/matomo-tracker-react",
+  "version": "0.7.0",
+  "description": "Matomo tracker for react projects",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "license": "MPL-2.0",
+  "author": "Jon Koops",
+  "homepage": "https://github.com/jonkoops/matomo-tracker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonkoops/matomo-tracker.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/jonkoops/matomo-tracker/issues"
+  },
+  "files": [
+    "lib",
+    "es",
+    "src",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "contributors": [
+    "Chris van Mook <chrisvanmook@gmail.com>",
+    "Jon Koops <jonkoops@gmail.com>"
+  ],
+  "keywords": [
+    "matomo",
+    "piwik",
+    "tracking",
+    "analytics",
+    "react"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@jonkoops/matomo-tracker": "^0.7.0"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0"
+  },
+  "gitHead": "cc08cc56b79af67a93de78632dc98b9ef2588871"
+}
