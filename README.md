@@ -1,4 +1,4 @@
-# Matomo Tracker (React)
+# Matomo React
 
 Stand alone library for using Matamo tracking in React projects. Originally forked from @datapunt/matomo-react. Since he abandoned the project I forked the part of it containing React specific logic, since I needed it for a project. Most of the credits for the code belongs to @datapunt.
 
