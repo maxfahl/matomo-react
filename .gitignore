@@ -1,5 +1,5 @@
 lib
-es
 node_modules
 *.tsbuildinfo
 .idea
+yarn-error.log

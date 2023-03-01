@@ -1,6 +1,6 @@
 {
   "name": "matomo-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Matomo integration for react projects",
   "main": "lib/index.js",
   "license": "MPL-2.0",
