@@ -1,14 +1,31 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./lib"
+    "noLib": false,
+    "module": "commonjs",
+    "jsx": "react",
+    "lib": ["es2017", "dom"],
+    "target": "es5",
+    "baseUrl": ".",
+    "outDir": "lib",
+    "composite": true,
+    "sourceMap": true,
+    "allowJs": false,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.test.*"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

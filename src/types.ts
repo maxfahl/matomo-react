@@ -1,20 +1,100 @@
-import MatomoTracker, { types } from '@jonkoops/matomo-tracker'
-
 export interface MatomoInstance {
-  trackEvent: MatomoTracker['trackEvent']
-  trackEvents: MatomoTracker['trackEvents']
-  trackPageView: MatomoTracker['trackPageView']
-  trackSiteSearch: MatomoTracker['trackSiteSearch']
-  trackLink: MatomoTracker['trackLink']
-  pushInstruction: MatomoTracker['pushInstruction']
+  trackEvent: ({
+    category,
+    action,
+    name,
+    value,
+    ...otherParams
+  }: TrackEventParams) => void
+  trackEvents: () => void
+  trackPageView: (params?: TrackPageViewParams) => void
+  trackSiteSearch: ({
+    keyword,
+    category,
+    count,
+    ...otherParams
+  }: TrackSiteSearchParams) => void
+  trackLink: ({ href, linkType = 'link' }: TrackLinkParams) => void
+  pushUserId: (userId: string) => void
+  pushInstruction: (name: string, ...args: any[]) => MatomoInstance
 }
 
-export type InstanceParams = types.UserOptions
+export interface CustomDimension {
+  id: number
+  value: string
+}
 
-export type TrackPageViewParams = types.TrackPageViewParams
+export interface UserOptions {
+  urlBase: string
+  siteId: number
+  userId?: string
+  trackerUrl?: string
+  srcUrl?: string
+  disabled?: boolean
+  heartBeat?: {
+    active: boolean
+    seconds?: number
+  }
+  linkTracking?: boolean
+  configurations?: {
+    [key: string]: any
+  }
+}
 
-export type TrackEventParams = types.TrackEventParams
+export interface TrackPageViewParams {
+  documentTitle?: string
+  href?: string | Location
+  customDimensions?: boolean | CustomDimension[]
+}
 
-export type TrackSiteSearchParams = types.TrackSiteSearchParams
+export interface TrackParams extends TrackPageViewParams {
+  data: any[]
+}
 
-export type TrackLinkParams = types.TrackLinkParams
+export interface TrackEventParams extends TrackPageViewParams {
+  category: string
+  action: string
+  name?: string
+  value?: number
+}
+
+export interface TrackLinkParams {
+  href: string
+  linkType?: 'download' | 'link'
+}
+
+export interface TrackSiteSearchParams extends TrackPageViewParams {
+  keyword: string
+  category?: string
+  count?: number
+}
+
+export interface TrackEcommerceOrderParams {
+  orderId: string
+  orderRevenue: number
+  orderSubTotal?: number
+  taxAmount?: number
+  shippingAmount?: number
+  discountOffered?: boolean
+}
+
+export interface AddEcommerceItemParams {
+  sku: string
+  productName?: string
+  productCategory?: string
+  productPrice?: number
+  productQuantity?: number
+}
+
+export interface RemoveEcommerceItemParams {
+  sku: string
+}
+
+export interface SetEcommerceViewParams {
+  sku: string | boolean
+  productName?: string | boolean
+  productCategory?: string
+  productPrice?: number
+}
+
+export type InstanceParams = UserOptions
