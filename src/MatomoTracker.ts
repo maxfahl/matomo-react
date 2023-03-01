@@ -45,9 +45,9 @@ class MatomoTracker {
       return
     }
 
-    window['_paq'] = window['_paq'] || []
+    window._paq = window._paq || []
 
-    if (window['_paq'].length !== 0) {
+    if (window._paq.length !== 0) {
       return
     }
 
@@ -351,7 +351,7 @@ class MatomoTracker {
    * @param args The arguments to pass along with the instruction.
    */
   pushInstruction(name: string, ...args: any[]): MatomoTracker {
-    window['_paq'].push([name, ...args])
+    window._paq.push([name, ...args])
     return this
   }
 }
