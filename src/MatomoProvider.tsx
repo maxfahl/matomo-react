@@ -3,7 +3,7 @@ import MatomoContext from './MatomoContext'
 import { MatomoInstance } from './types'
 
 export interface MatomoProviderProps {
-  children?: React.ReactNode
+  children: React.ReactNode
   value: MatomoInstance
 }
 
@@ -11,9 +11,9 @@ const MatomoProvider: React.FC<MatomoProviderProps> = function ({
   children,
   value,
 }) {
-  const Context = MatomoContext
-
-  return <Context.Provider value={value}>{children}</Context.Provider>
+  return (
+    <MatomoContext.Provider value={value}>{children}</MatomoContext.Provider>
+  )
 }
 
 export default MatomoProvider

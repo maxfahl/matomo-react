@@ -11,9 +11,10 @@ import {
   TrackParams,
   TrackSiteSearchParams,
   UserOptions,
+  MatomoInstance,
 } from './types'
 
-class MatomoTracker {
+class MatomoTracker implements MatomoInstance {
   private mutationObserver?: MutationObserver
 
   private permanentTitle: string | undefined
@@ -64,9 +65,10 @@ class MatomoTracker {
       return
     }
 
-    if (trackerUrl) {
-      this.pushInstruction('setTrackerUrl', trackerUrl)
-    }
+    this.pushInstruction(
+      'setTrackerUrl',
+      trackerUrl || `${normalizedUrlBase}matomo.php`,
+    )
 
     this.pushInstruction('setSiteId', siteId)
 

@@ -1,31 +1,40 @@
 {
-  "compilerOptions": {
-    "noLib": false,
-    "module": "commonjs",
-    "jsx": "react",
-    "lib": ["es2017", "dom"],
-    "target": "es5",
-    "baseUrl": ".",
-    "outDir": "lib",
-    "composite": true,
-    "sourceMap": true,
-    "allowJs": false,
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "declaration": true,
-    "declarationMap": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "strict": true
-  },
-  "include": ["src", "global.d.ts"],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		"noLib": false,
+		"target": "es5",
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"module": "esnext",
+		"baseUrl": "src",
+		"rootDir": "src",
+		"outDir": "lib",
+		"sourceMap": true,
+		"allowJs": false,
+		"moduleResolution": "node",
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"esModuleInterop": true,
+		"noImplicitAny": true,
+		"declaration": true,
+		"declarationMap": true,
+		"strictNullChecks": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noUnusedLocals": true,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"strict": true,
+		"jsx": "react"
+	},
+	"include": [
+		"src",
+		"global.d.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

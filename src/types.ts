@@ -14,7 +14,7 @@ export interface MatomoInstance {
     count,
     ...otherParams
   }: TrackSiteSearchParams) => void
-  trackLink: ({ href, linkType = 'link' }: TrackLinkParams) => void
+  trackLink: ({ href, linkType }: TrackLinkParams) => void
   pushUserId: (userId: string) => void
   pushInstruction: (name: string, ...args: any[]) => MatomoInstance
 }
@@ -42,6 +42,7 @@ export interface UserOptions {
     [key: string]: any
   }
 }
+export type InstanceParams = UserOptions
 
 export interface TrackPageViewParams {
   documentTitle?: string
@@ -67,8 +68,8 @@ export interface TrackLinkParams {
 
 export interface TrackSiteSearchParams extends TrackPageViewParams {
   keyword: string
-  category?: string
-  count?: number
+  category?: string | boolean
+  count?: number | boolean
 }
 
 export interface TrackEcommerceOrderParams {
@@ -98,5 +99,3 @@ export interface SetEcommerceViewParams {
   productCategory?: string
   productPrice?: number
 }
-
-export type InstanceParams = UserOptions

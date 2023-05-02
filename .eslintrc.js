@@ -10,6 +10,8 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   rules: {
+    'no-console': 'off',
+    'func-names': 'off',
     'import/no-extraneous-dependencies': 'off',
     'react/require-default-props': 'off',
     'react/prop-types': 'off',

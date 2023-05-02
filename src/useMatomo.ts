@@ -9,42 +9,52 @@ import {
 import useOutboundClickListener from './utils/useOutboundClickListener'
 
 function useMatomo() {
-  const instance = useContext(MatomoContext)
+  const context = useContext(MatomoContext)
+
+  // if (!context)
+  //   throw new Error('useMatomo must be used withing a MatomoProvider.')
 
   const trackPageView = useCallback(
-    (params?: TrackPageViewParams) => instance?.trackPageView(params),
-    [instance],
+    (params?: TrackPageViewParams) => context?.trackPageView(params),
+    [context],
   )
 
   const trackEvent = useCallback(
-    (params: TrackEventParams) => instance?.trackEvent(params),
-    [instance],
+    (params: TrackEventParams) => context?.trackEvent(params),
+    [context],
   )
 
-  const trackEvents = useCallback(() => instance?.trackEvents(), [instance])
+  const trackEvents = useCallback(() => context?.trackEvents(), [context])
 
   const trackSiteSearch = useCallback(
-    (params: TrackSiteSearchParams) => instance?.trackSiteSearch(params),
-    [instance],
+    (params: TrackSiteSearchParams) => context?.trackSiteSearch(params),
+    [context],
   )
 
   const trackLink = useCallback(
-    (params: TrackLinkParams) => instance?.trackLink(params),
-    [instance],
+    (params: TrackLinkParams) => context?.trackLink(params),
+    [context],
   )
 
   const enableLinkTracking = useCallback(() => {
-    if (instance) {
-      useOutboundClickListener(instance)
+    if (context) {
+      useOutboundClickListener(context)
     }
-  }, [instance])
+  }, [context])
 
   const pushInstruction = useCallback(
     (name: string, ...args: any[]) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      instance?.pushInstruction(name, ...args)
+      context?.pushInstruction(name, ...args)
     },
-    [instance],
+    [context],
+  )
+
+  const pushUserId = useCallback(
+    (userId: string) => {
+      context?.pushUserId(userId)
+    },
+    [context],
   )
 
   return {
@@ -55,6 +65,7 @@ function useMatomo() {
     trackLink,
     enableLinkTracking,
     pushInstruction,
+    pushUserId,
   }
 }
 
