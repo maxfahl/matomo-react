@@ -1,6 +1,7 @@
 import { useCallback, useContext } from 'react'
 import MatomoContext from './MatomoContext'
 import {
+  CustomDimension,
   TrackEventParams,
   TrackLinkParams,
   TrackPageViewParams,
@@ -11,8 +12,8 @@ import useOutboundClickListener from './utils/useOutboundClickListener'
 function useMatomo() {
   const context = useContext(MatomoContext)
 
-  // if (!context)
-  //   throw new Error('useMatomo must be used withing a MatomoProvider.')
+  if (!context)
+    throw new Error('useMatomo must be used withing a MatomoProvider.')
 
   const trackPageView = useCallback(
     (params?: TrackPageViewParams) => context?.trackPageView(params),
@@ -50,6 +51,20 @@ function useMatomo() {
     [context],
   )
 
+  const pushCustomDimensions = useCallback(
+    (dimensions: CustomDimension[]) => {
+      context?.pushCustomDimensions(dimensions)
+    },
+    [context],
+  )
+
+  const pushCustomDimension = useCallback(
+    (dimension: CustomDimension) => {
+      context?.pushCustomDimension(dimension)
+    },
+    [context],
+  )
+
   const pushUserId = useCallback(
     (userId: string) => {
       context?.pushUserId(userId)
@@ -65,6 +80,8 @@ function useMatomo() {
     trackLink,
     enableLinkTracking,
     pushInstruction,
+    pushCustomDimensions,
+    pushCustomDimension,
     pushUserId,
   }
 }

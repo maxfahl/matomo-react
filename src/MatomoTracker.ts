@@ -83,7 +83,7 @@ class MatomoTracker implements MatomoInstance {
       }
     })
 
-    // accurately measure the time spent on the last pageview of a visit
+    // accurately measure the time spent on the last page view of a visit
     if (!heartBeat || (heartBeat && heartBeat.active)) {
       this.enableHeartBeatTimer((heartBeat && heartBeat.seconds) ?? 15)
     }
@@ -312,36 +312,59 @@ class MatomoTracker implements MatomoInstance {
     this.setEcommerceView({ productCategory, productName: false, sku: false })
   }
 
+  pushCustomDimension(customDimension: CustomDimension): MatomoTracker {
+    return this.pushInstruction(
+      'setCustomDimension',
+      customDimension.id,
+      customDimension.value,
+    )
+  }
+
+  pushCustomDimensions(customDimensions: CustomDimension[]): MatomoTracker {
+    if (!this.arrayHasValues(customDimensions))
+      // Early exit
+      return this
+
+    customDimensions.map((customDimension: CustomDimension) =>
+      this.pushCustomDimension(customDimension),
+    )
+    return this
+  }
+
+  pushUserId(userId: string): void {
+    this.pushInstruction('setUserId', userId)
+  }
+
   // Sends the tracked page/view/search to Matomo
   track({
     data = [],
     documentTitle = this.permanentTitle ?? window.document.title,
     href = this.permanentHref ?? window.location.href,
-    customDimensions = false,
+    customDimensions = [],
   }: TrackParams): void {
     if (data.length) {
-      if (
-        customDimensions &&
-        Array.isArray(customDimensions) &&
-        customDimensions.length
-      ) {
-        customDimensions.map((customDimension: CustomDimension) =>
-          this.pushInstruction(
-            'setCustomDimension',
-            customDimension.id,
-            customDimension.value,
-          ),
-        )
+      if (typeof href === 'object')
+        // Probably of type location
+        href = href.toString()
+      else if (href.indexOf('http') !== 0) {
+        href = window.location.origin + href + window.location.search
       }
+
+      this.pushCustomDimensions(customDimensions)
 
       this.pushInstruction('setCustomUrl', href)
       this.pushInstruction('setDocumentTitle', documentTitle)
       this.pushInstruction(...(data as [string, ...any[]]))
-    }
-  }
 
-  pushUserId(userId: string): void {
-    this.pushInstruction('setUserId', userId)
+      // Automatically remove any custom dimensions that were set.
+      const dimensionsToReset = customDimensions
+        .filter((cd) => cd.keepAfterOperation !== true)
+        .map((cd) => ({
+          ...cd,
+          value: undefined,
+        }))
+      this.pushCustomDimensions(dimensionsToReset)
+    }
   }
 
   /**
@@ -364,6 +387,14 @@ class MatomoTracker implements MatomoInstance {
   pushInstruction(name: string, ...args: any[]): MatomoTracker {
     window._paq.push([name, ...args])
     return this
+  }
+
+  arrayHasValues(customDimensions: CustomDimension[]): boolean {
+    return !!(
+      customDimensions &&
+      Array.isArray(customDimensions) &&
+      customDimensions.length
+    )
   }
 }
 

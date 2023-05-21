@@ -15,13 +15,16 @@ export interface MatomoInstance {
     ...otherParams
   }: TrackSiteSearchParams) => void
   trackLink: ({ href, linkType }: TrackLinkParams) => void
+  pushCustomDimension: (dimension: CustomDimension) => MatomoInstance
+  pushCustomDimensions: (dimensions: CustomDimension[]) => MatomoInstance
   pushUserId: (userId: string) => void
   pushInstruction: (name: string, ...args: any[]) => MatomoInstance
 }
 
 export interface CustomDimension {
   id: number
-  value: string
+  value: string | undefined
+  keepAfterOperation?: boolean
 }
 
 export interface UserOptions {
@@ -47,7 +50,7 @@ export type InstanceParams = UserOptions
 export interface TrackPageViewParams {
   documentTitle?: string
   href?: string | Location
-  customDimensions?: boolean | CustomDimension[]
+  customDimensions?: CustomDimension[]
 }
 
 export interface TrackParams extends TrackPageViewParams {
