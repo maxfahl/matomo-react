@@ -1,7 +1,3 @@
-export {};
-
-declare global {
-  interface Window {
-    _paq: any;
-  }
+interface Window {
+  _paq: any;
 }

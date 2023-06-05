@@ -1,6 +1,6 @@
 {
 	"name": "matomo-react",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "Matomo integration for react projects",
 	"main": "lib/index.js",
 	"license": "MPL-2.0",
@@ -19,7 +19,6 @@
 		"src",
 		"README.md"
 	],
-	"types": "./src/index.ts",
 	"sideEffects": false,
 	"contributors": [
 		"Chris van Mook <chrisvanmook@gmail.com>",
